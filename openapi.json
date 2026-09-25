@@ -1,0 +1,451 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "OpenAbstracts Academic Paper Search",
+    "version": "1.0.0",
+    "description": "Search 300,000+ academic papers across 700+ registered journals. Keyword search over titles and abstracts, or full-text search inside the PDFs with highlighted snippets. Each result includes authors, year, journal, DOI, abstract, quartile and PDF/landing-page links. 100 free searches per month, then $1.50 per 1,000 searches.",
+    "contact": {
+      "name": "OpenAbstracts",
+      "url": "https://openabstracts.com",
+      "email": "contact@openabstracts.com"
+    },
+    "termsOfService": "https://openabstracts.com/terms"
+  },
+  "servers": [
+    {
+      "url": "https://openabstracts.com"
+    }
+  ],
+  "externalDocs": {
+    "description": "Full documentation",
+    "url": "https://openabstracts.com/docs"
+  },
+  "tags": [
+    {
+      "name": "Search"
+    },
+    {
+      "name": "Journals"
+    },
+    {
+      "name": "Health"
+    }
+  ],
+  "paths": {
+    "/api/references-search": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "operationId": "searchPapers",
+        "summary": "Search papers",
+        "description": "Search the paper index. `mode=papers` matches titles, abstracts, keywords and authors. `mode=content` searches the full PDF text and returns highlighted snippets. Searches that return no results are not billed.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "description": "Search query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "marketing"
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "description": "`papers` searches titles/abstracts (default); `content` searches full PDF text",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "papers",
+                "content"
+              ],
+              "default": "papers"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "description": "Filter by subject category, e.g. business, medicine, engineering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "yearFrom",
+            "in": "query",
+            "required": false,
+            "description": "Earliest publication year (inclusive)",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 2015
+          },
+          {
+            "name": "yearTo",
+            "in": "query",
+            "required": false,
+            "description": "Latest publication year (inclusive)",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 2024
+          },
+          {
+            "name": "quartile",
+            "in": "query",
+            "required": false,
+            "description": "Comma-separated journal quartiles to allow, e.g. Q1,Q2",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Results per page (max 100)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching papers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "references": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "OpenAbstracts paper id"
+                          },
+                          "doi": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "authors": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "year": {
+                            "type": "integer",
+                            "nullable": true
+                          },
+                          "journal": {
+                            "type": "string"
+                          },
+                          "abstract": {
+                            "type": "string"
+                          },
+                          "category": {
+                            "type": "string"
+                          },
+                          "language": {
+                            "type": "string"
+                          },
+                          "pdfUrl": {
+                            "type": "string",
+                            "description": "Link to the original PDF when available"
+                          },
+                          "url": {
+                            "type": "string",
+                            "description": "Publisher landing page"
+                          },
+                          "quartile": {
+                            "type": "string",
+                            "description": "Journal quartile (Q1-Q4) when known"
+                          },
+                          "score": {
+                            "type": "number",
+                            "description": "Relevance score"
+                          },
+                          "highlights": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "Matching snippets (mode=content only)"
+                          },
+                          "matchType": {
+                            "type": "string",
+                            "enum": [
+                              "papers",
+                              "content"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "Total matches"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    },
+                    "ms": {
+                      "type": "string",
+                      "description": "Query time in milliseconds"
+                    },
+                    "mode": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid credentials"
+          },
+          "402": {
+            "description": "Free allowance used up and balance too low"
+          },
+          "403": {
+            "description": "Key expired or request limit reached"
+          }
+        }
+      }
+    },
+    "/api/registered-journals": {
+      "get": {
+        "tags": [
+          "Journals"
+        ],
+        "operationId": "listJournals",
+        "summary": "List indexed journals",
+        "description": "Lists the journals in the index with paper counts.",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "description": "Filter by journal name",
+            "schema": {
+              "type": "string"
+            },
+            "example": "economics"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "description": "`all`, `indexed` (has papers) or `empty`",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "all",
+                "indexed",
+                "empty"
+              ],
+              "default": "all"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Results per page (max 100)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 15
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Journals",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "journals": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "baseUrl": {
+                            "type": "string"
+                          },
+                          "category": {
+                            "type": "string"
+                          },
+                          "paperCount": {
+                            "type": "integer"
+                          },
+                          "lastIndexedAt": {
+                            "type": "integer",
+                            "nullable": true
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "indexedJournals": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid credentials"
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "operationId": "healthCheck",
+        "summary": "Service health",
+        "description": "Reports whether the database and search index are reachable. No authentication required.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "ok"
+                      ]
+                    },
+                    "checks": {
+                      "type": "object",
+                      "properties": {
+                        "database": {
+                          "type": "string"
+                        },
+                        "search": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Degraded \u2014 database or search index unreachable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "degraded"
+                      ]
+                    },
+                    "checks": {
+                      "type": "object",
+                      "properties": {
+                        "database": {
+                          "type": "string"
+                        },
+                        "search": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "Create a key at https://openabstracts.com/api-keys"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ]
+}
