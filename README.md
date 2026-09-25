@@ -66,7 +66,6 @@ curl "https://openabstracts.com/api/references-search?q=marketing&limit=3" \
 
 ### Other endpoints
 
-- `GET /api/registered-journals` — list indexed journals (`search`, `filter`, `page`, `limit`)
 - `GET /api/health` — service health, no authentication
 
 Errors: `401` missing/invalid key · `402` free allowance used and balance too low · `403` key expired or limit reached · `500` internal error.
