@@ -126,7 +126,7 @@ MCP calls are billed exactly like REST calls.
 - [Add real citations to an AI chatbot](https://openabstracts.com/blogs/add-real-citations-to-an-ai-chatbot)
 - [Citation verification for AI writing tools](https://openabstracts.com/blogs/citation-verification-for-ai-essay-tools)
 - [RAG over academic literature](https://openabstracts.com/blogs/rag-over-academic-literature)
-- [Connect OpenAbstracts to Claude with MCP](https://openabstracts.com/blogs/connect-openabstracts-to-claude-mcp)
+- [Connect OpenAbstracts to Claude with MCP](https://openabstracts.com/mcp/doc)
 
 ## What it is not
 
