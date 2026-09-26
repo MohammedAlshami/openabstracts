@@ -3,7 +3,7 @@
   "info": {
     "title": "OpenAbstracts Academic Paper Search",
     "version": "1.0.0",
-    "description": "Search 300,000+ academic papers across 700+ registered journals. Keyword search over titles and abstracts, or full-text search inside the PDFs with highlighted snippets. Each result includes authors, year, journal, DOI, abstract, quartile and PDF/landing-page links. 100 free searches per month, then $1.50 per 1,000 searches.",
+    "description": "Search 10M+ academic papers across 100,000+ journals. Keyword search over titles and abstracts, or full-text search inside the PDFs with highlighted snippets. Each result includes authors, year, journal, DOI, abstract, quartile and PDF/landing-page links. 100 free searches per month, then $1.50 per 1,000 searches.",
     "contact": {
       "name": "OpenAbstracts",
       "url": "https://openabstracts.com",

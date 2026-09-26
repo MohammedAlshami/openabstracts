@@ -1,13 +1,13 @@
 ---
 name: openabstracts-citations
-description: Find real academic papers and verify citations using the OpenAbstracts journal-search index (300,000+ papers, 700+ registered journals). Use this whenever the user asks you to find a source, check whether a citation is real, fix a fabricated or vague reference, or needs a properly formatted citation for a claim.
+description: Find real academic papers and verify citations using the OpenAbstracts journal-search index (10M+ papers, 100,000+ journals). Use this whenever the user asks you to find a source, check whether a citation is real, fix a fabricated or vague reference, or needs a properly formatted citation for a claim.
 ---
 
 # OpenAbstracts citation verification
 
 You have access to an OpenAbstracts MCP connector when this Skill is invoked (the user must have added `https://openabstracts.com/mcp` as a connector — if its tool isn't available, tell the user to connect it first at https://openabstracts.com/docs). It exposes one tool, `search_papers` (possibly prefixed with the connector name, e.g. `openabstracts_search_papers` — look for a tool matching that shape among what's currently connected):
 
-- **search_papers** — keyword search over titles/abstracts/full-text across 700+ registered journals. Takes `q` (required), plus optional `category`, `yearFrom`/`yearTo`, `quartile`, `mode` ("papers" or "content"), `page`, `limit`. Each result includes the title, authors, year, journal, DOI, abstract, and PDF/landing page links.
+- **search_papers** — keyword search over titles/abstracts/full-text across 100,000+ journals. Takes `q` (required), plus optional `category`, `yearFrom`/`yearTo`, `quartile`, `mode` ("papers" or "content"), `page`, `limit`. Each result includes the title, authors, year, journal, DOI, abstract, and PDF/landing page links.
 
 ## When to use this Skill
 

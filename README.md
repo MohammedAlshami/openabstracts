@@ -2,7 +2,7 @@
 
 # OpenAbstracts
 
-**Paper search API and MCP server** for 300,000+ academic papers from 700+ registered journals.
+**Paper search API and MCP server** for 10M+ academic papers from 100,000+ journals.
 
 Keyword search over titles and abstracts, or full-text search inside the PDFs with highlighted snippets. Every result includes title, authors, year, journal, DOI, abstract, journal quartile and links to the PDF and publisher page.
 
@@ -122,7 +122,7 @@ MCP calls are billed exactly like REST calls.
 
 ## Guides
 
-- [Search 300,000 papers with one curl call](https://openabstracts.com/blogs/search-300k-papers-with-one-curl-call)
+- [Search 10 million papers with one curl call](https://openabstracts.com/blogs/search-10m-papers-with-one-curl-call)
 - [Add real citations to an AI chatbot](https://openabstracts.com/blogs/add-real-citations-to-an-ai-chatbot)
 - [Citation verification for AI writing tools](https://openabstracts.com/blogs/citation-verification-for-ai-essay-tools)
 - [RAG over academic literature](https://openabstracts.com/blogs/rag-over-academic-literature)
